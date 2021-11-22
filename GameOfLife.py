@@ -20,14 +20,21 @@ CLOCK = pygame.time.Clock()
 StartButton = pygame.Rect(WINDOW_WIDTH/2-45,WINDOW_HEIGHT+20, 90, 30)
 SCREEN.fill(BLACK)
 
-def main(): # 
+#Botão de iniciar
+pygame.draw.rect(SCREEN, (100,100,100), StartButton, 0)
+smallfont = pygame.font.SysFont('Arial',28)
+text = smallfont.render('Start' , True , WHITE)
+SCREEN.blit(text , (WINDOW_WIDTH/2-30,WINDOW_HEIGHT+15))
+
+
+
+def main(): 
 	global SCREEN, CLOCK, WINDOW_WIDTH, WINDOW_HEIGHT, StartButton, Start, matrix, newMatrix, n
 	if modo == 1:
 		matrix = np.zeros((n,n))
 	else:
 		matrix = np.random.randint(0,2,(n,n))
-		
-		
+	
 	while True:
 		drawGame()
 		for event in pygame.event.get():
@@ -44,11 +51,6 @@ def main(): #
 def drawGame():
 	global SCREEN, CLOCK, WINDOW_WIDTH, WINDOW_HEIGHT, StartButton, Start, matrix, newMatrix, n
 	
-	#Botão de iniciar
-	pygame.draw.rect(SCREEN, (100,100,100), StartButton, 0)
-	smallfont = pygame.font.SysFont('Arial',28)
-	text = smallfont.render('Start' , True , WHITE)
-	SCREEN.blit(text , (WINDOW_WIDTH/2-30,WINDOW_HEIGHT+15))
 	
 	# time.sleep(0.05)  Se achar rápido demais só descomentar
 	
@@ -57,12 +59,13 @@ def drawGame():
 		for y in range(n):
 			rect = pygame.Rect(x*blockSize, y*blockSize, blockSize, blockSize)
 			pygame.draw.rect(SCREEN, YELLOW if matrix[x,y] else BLACK , rect, 0)
-	
-	#Grid base
+	#Grid base	
 	for x in range(0, WINDOW_WIDTH, blockSize):
 		for y in range(0, WINDOW_HEIGHT, blockSize):
 			rect = pygame.Rect(x, y, blockSize, blockSize)
 			pygame.draw.rect(SCREEN, WHITE, rect, 1)
+
+		
 			
 	if Start:	# Iteração do jogo
 		newMatrix = np.zeros((n,n))
