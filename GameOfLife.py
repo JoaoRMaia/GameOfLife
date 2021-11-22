@@ -2,6 +2,7 @@ import sys
 import pygame
 import numpy as np
 import time
+import random
 
 BLACK = (0, 0, 0)
 WHITE = (230, 230, 230)
@@ -11,6 +12,7 @@ Start = 0
 
 pygame.init()
 n = int(input("Qual deverá ser a dimensão do tabuleiro?\n"))
+modo = int(input("Qual modo?\n 1- Todas começam desligadas \n 2- Aleatório\n"))
 WINDOW_WIDTH = blockSize*n
 WINDOW_HEIGHT = blockSize*n
 SCREEN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT+60))
@@ -20,7 +22,12 @@ SCREEN.fill(BLACK)
 
 def main(): # 
 	global SCREEN, CLOCK, WINDOW_WIDTH, WINDOW_HEIGHT, StartButton, Start, matrix, newMatrix, n
-	matrix = np.zeros((n,n))
+	if modo == 1:
+		matrix = np.zeros((n,n))
+	else:
+		matrix = np.random.randint(0,2,(n,n))
+		
+		
 	while True:
 		drawGame()
 		for event in pygame.event.get():
